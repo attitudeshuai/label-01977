@@ -1,0 +1,66 @@
+# ================================
+# Daily Journal - Application Config
+# ================================
+
+spring:
+  application:
+    name: daily-journal
+
+  # Database
+  datasource:
+    url: jdbc:mysql://localhost:3306/daily_journal?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    username: journal_user
+    password: journal_pass
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  # JPA / Hibernate
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+
+  # Jackson
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
+    serialization:
+      write-dates-as-timestamps: false
+
+# Server
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+# JWT Config
+jwt:
+  secret: ${JWT_SECRET:dailyJournalSecretKey2024VeryLongAndSecure}
+  expiration: ${JWT_EXPIRATION:86400000}
+
+# Logging
+logging:
+  level:
+    root: INFO
+    com.dailyjournal: DEBUG
+    org.springframework.security: INFO
+
+---
+# Docker Profile
+spring:
+  config:
+    activate:
+      on-profile: docker
+
+  datasource:
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+
+logging:
+  level:
+    root: INFO
+    com.dailyjournal: INFO

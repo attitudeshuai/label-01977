@@ -1,0 +1,30 @@
+{
+  "name": "daily-journal-frontend",
+  "version": "1.0.0",
+  "description": "Daily Journal - Vue 3 Frontend",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix"
+  },
+  "dependencies": {
+    "vue": "^3.4.15",
+    "vue-router": "^4.2.5",
+    "pinia": "^2.1.7",
+    "axios": "^1.6.5",
+    "@tiptap/vue-3": "^2.2.1",
+    "@tiptap/starter-kit": "^2.2.1",
+    "@tiptap/extension-placeholder": "^2.2.1",
+    "@tiptap/extension-underline": "^2.2.1",
+    "lucide-vue-next": "^0.314.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.3",
+    "vite": "^5.0.11",
+    "tailwindcss": "^3.4.1",
+    "postcss": "^8.4.33",
+    "autoprefixer": "^10.4.17"
+  }
+}

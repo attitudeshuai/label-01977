@@ -1,0 +1,102 @@
+# ========================
+# Daily Journal - .gitignore
+# ========================
+
+# ========================
+# IDE & Editor
+# ========================
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+
+# ========================
+# OS Generated
+# ========================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# ========================
+# Backend - Java/Spring Boot
+# ========================
+backend/target/
+backend/*.jar
+backend/*.war
+backend/*.class
+backend/.mvn/wrapper/maven-wrapper.jar
+
+# Logs
+backend/logs/
+*.log
+
+# ========================
+# Frontend - Node/Vue
+# ========================
+frontend/node_modules/
+frontend/dist/
+frontend/.cache/
+frontend/.parcel-cache/
+
+# Environment
+frontend/.env.local
+frontend/.env.*.local
+
+# Logs
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/pnpm-debug.log*
+
+# ========================
+# Docker
+# ========================
+.docker/
+
+# ========================
+# Environment Files
+# ========================
+.env
+.env.local
+.env.*.local
+*.env
+
+# ========================
+# Build Outputs
+# ========================
+build/
+dist/
+out/
+*.jar
+*.war
+
+# ========================
+# Temporary Files
+# ========================
+tmp/
+temp/
+*.tmp
+*.temp
+
+# ========================
+# Database
+# ========================
+*.sql.bak
+mysql-data/
+
+# ========================
+# Alkaid SOP
+# ========================
+# Keep .alkaid-sop file
+!.alkaid-sop

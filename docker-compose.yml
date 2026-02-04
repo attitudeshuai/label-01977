@@ -1,0 +1,84 @@
+version: '3.8'
+
+# ================================
+# Daily Journal - Docker Compose
+# ================================
+
+services:
+  # ================================
+  # MySQL Database
+  # ================================
+  mysql:
+    image: mysql:8.0
+    container_name: daily-journal-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: daily_journal
+      MYSQL_USER: journal_user
+      MYSQL_PASSWORD: journal_pass
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot123"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - journal-network
+
+  # ================================
+  # Spring Boot Backend
+  # ================================
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: daily-journal-backend
+    restart: unless-stopped
+    ports:
+      - "8081:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/daily_journal?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: journal_user
+      SPRING_DATASOURCE_PASSWORD: journal_pass
+      JWT_SECRET: dailyJournalSecretKey2024VeryLongAndSecure
+      JWT_EXPIRATION: 86400000
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - journal-network
+
+  # ================================
+  # Vue Frontend (Nginx)
+  # ================================
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: daily-journal-frontend
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - journal-network
+
+# ================================
+# Networks
+# ================================
+networks:
+  journal-network:
+    driver: bridge
+
+# ================================
+# Volumes
+# ================================
+volumes:
+  mysql-data:
